@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'money'
 require 'date'
-require 'yajl'
+require 'json'
 require 'open-uri'
 
 class Money
@@ -20,7 +20,7 @@ class Money
                          HIST_URL + date.strftime('%Y-%m-%d') + '.json'
                        end
         rates_source << "?app_id=#{ENV['OPENEXCHANGERATES_APP_ID']}" if ENV['OPENEXCHANGERATES_APP_ID']
-        doc = Yajl::Parser.parse(open(rates_source).read)
+        doc = JSON.parse(open(rates_source).read)
 
         base_currency = doc['base'] || 'USD'
 
